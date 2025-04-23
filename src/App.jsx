@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Map from "./pages/Map";
+import List from "./pages/List";
+import { useDispatch } from "react-redux";
 
+
+const App = () => {
+  const [detailId, setDetailId] = useState(null);
+  const dispatch = useDispatch();
+  /* setInterval ile Real Time Fetch Data yaparak canlı vari sağlayabiliriz. Ama bunu sadece Map sayafsında yapmamız lazım. clearInterval ile interval'i kaldırabiliriz. Bu şekilde sayfada performans sağlarız.  */
+  useEffect(() => {
+    dispatch(getFlights());
+  }, []);
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Map setDetailId={setDetailId} />} />
+        <Route path="/list" element={<List setDetailId={setDetailId} />} />
+      </Routes>
+      {/*   detailId state'i doluysa ekrana modal bas ve id propu gönder. */}
+      {detailId && <Modal id={detailId} close={() => setDetailId(null)} />}
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
