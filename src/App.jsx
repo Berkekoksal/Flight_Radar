@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+<<<<<<< HEAD
+import Header from "./components/Header";
+import Map from "./pages/Map";
+import List from "./pages/List";
+import { useDispatch } from "react-redux";
+import { getFlights } from "./redux/actions";
+import Modal from "./components/Modal/index";
+=======
 
 import Map from "./pages/Map";
 import List from "./pages/List";
 import { useDispatch } from "react-redux";
 
 
+>>>>>>> main
 const App = () => {
   const [detailId, setDetailId] = useState(null);
   const dispatch = useDispatch();
@@ -26,4 +35,8 @@ const App = () => {
   );
 };
 
+<<<<<<< HEAD
+export default App;
+=======
 export default App;
+>>>>>>> main
